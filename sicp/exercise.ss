@@ -92,3 +92,34 @@
 (sort (list 1 2 3 2 3 482 111 333) <) ;; => (1 2 2 3 3 111 333 482)
 
 (sort (list 33 111 9403 193 18333 28394) >) ;; => (28394 18333 9403 193 111 33)
+
+
+;; 1.1.7
+
+(define sqrt
+  (lambda (x)
+    (sqrt-iter x 1.0)))
+
+(define sqrt-iter
+  (lambda (x guess)
+    (if (good-enough? guess x)
+        guess
+        (sqrt-iter x (improve guess x)))))
+
+(define good-enough?
+  (lambda (guess x)
+    (< (abs (- (squaer guess) x)) 0.001)))
+
+(define squaer
+  (lambda (x)
+    (* x x)))
+
+(define improve
+  (lambda (guess x)
+    (average guess (/ x guess))))
+
+(define average
+  (lambda (x y)
+    (/ (+ x y) 2)))
+
+(sqrt 9) ;; => 3.00009155413138
